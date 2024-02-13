@@ -4,7 +4,7 @@ This Project aims to rank the worst football clubs in the world based on various
 
 ## Idea
 
-The idea behind this project is to List all the football clubs, and rank them based on various criteria.
+The idea behind this project is to List all the football clubs, and compare and contrast the different teams across different leagues, Countries, and players.The Project also intend to provide some insight and lesson for football fans.
 
 ## Features
 
@@ -12,4 +12,6 @@ The main feature of this project are:
 
 - To show the list of all football club and rank them.
 - The database will store and organize the data in a structured format.
+- A ranking algorithm that assign scores and ranks to each team in the clubs based on their performance and reputation.
+- A user interface that allows users tointeract with the project and customize thaier preferencesand queries.
 
