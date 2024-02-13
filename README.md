@@ -14,3 +14,5 @@ The main feature of this project are:
 - The database will store and organize the data in a structured format.
 - A ranking algorithm that assign scores and ranks to each team in the clubs based on their performance and reputation.
 - A user interface that allows users to interact with the project and customize their preferencesand queries.
+- A user interface that allows users tointeract with the project and customize thaier preferencesand queries.
+
