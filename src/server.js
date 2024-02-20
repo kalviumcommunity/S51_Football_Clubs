@@ -33,5 +33,5 @@ app.listen(3000,async()=>{
     await startDatabase();
 
     console.log('Starting server ...🚀')
-    console.log('Server running on port 3000 🏃‍♂️')
+    console.log('Server running on port 3000 🏃')
 })
