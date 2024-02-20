@@ -4,7 +4,7 @@ const app = express()
 
 app.get('/home', (req, res) => {
     res.json({
-      message: isConnected() ? 'Database is connected' : 'disconnected'
+      message: isConnected() ? 'Database is connected' : 'Disconnected from database'
     })
 });
 
