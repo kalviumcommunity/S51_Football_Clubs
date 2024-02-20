@@ -4,7 +4,7 @@ const app = express()
 
 app.get('/home', (req, res) => {
     res.json({
-      message: isConnected() ? 'Database is connected' : 'disconnected'
+      message: isConnected() ? 'Database is connected' : 'Disconnected from database'
     })
 });
 
@@ -33,5 +33,5 @@ app.listen(3000,async()=>{
     await startDatabase();
 
     console.log('Starting server ...🚀')
-    console.log('Server running on port 3000 🏃‍♂️')
+    console.log('Server running on port 3000 🏃')
 })
