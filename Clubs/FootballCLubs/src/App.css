@@ -17,3 +17,14 @@
   padding-left: 3.5vw;
   padding-right: 3.5vw;
 }
+#Body-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 100vw;
+  text-align: center;
+}
+table{
+  background-color: #00000056;
+}
