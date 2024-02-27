@@ -1,9 +1,11 @@
 const express = require('express');
 const { startDatabase, isConnected } = require('./db/database');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const {getRouter, postRouter, deleteRouter, putRouter} = require('./routes/CRUDCLubs.routes');
 const app = express()
 app.use(bodyParser.json());
+app.use(cors());
 app.get('/home', (req, res) => {
     res.json({
       message: isConnected() ? 'Database is connected' : 'Disconnected from database'

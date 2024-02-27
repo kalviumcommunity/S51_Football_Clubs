@@ -1,14 +1,5 @@
-import React,{ useEffect, useState } from "react"
-import axios from "axios";
-
-
+import data from './data.json'
 function ListOfFootballClubs() {
-  const [data,setData] = useState([]);
-  useEffect(()=>{
-    axios.get('https://football-clubs.onrender.com/getallfootballclub')
-    .then((response) => setData(response.data))
-    .catch(error =>console.error(error))
-  },[])
   return (
     <div id='Body'>
         <div id='Navbar'>

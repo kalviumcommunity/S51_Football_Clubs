@@ -1,0 +1,33 @@
+meta {
+  name: Post - Data
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://football-clubs.onrender.com/addfootballclub
+  body: json
+  auth: none
+}
+
+body:json {
+   {
+    "SerialNumber": 13,
+    "ClubId": 13,
+    "ClubName": "Manchester City",
+    "Ranking": 1,
+    "Coach": "Pep Guardiola",
+    "MatchsPlayed": 1024,
+    "Won": 512,
+    "Losses": 287,
+    "Goals": 1809,
+    "Goals Conceded": 1127,
+    "CleanSheets": 353,
+    "Shots": 10942,
+    "Shotsontarget": 3884,
+    "Yellowcards": 1492,
+    "Redcards": 77,
+    "Fouls": 2173,
+    "Offsides": 1431
+   }
+}
