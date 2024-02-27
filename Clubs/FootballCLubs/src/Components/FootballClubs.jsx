@@ -5,7 +5,7 @@ import axios from "axios";
 function ListOfFootballClubs() {
   const [data,setData] = useState([]);
   useEffect(()=>{
-    axios.get('https://football-clubs.onrender.comgetallfootballclub')
+    axios.get('https://football-clubs.onrender.com/getallfootballclub')
     .then((response) => setData(response.data))
     .catch(error =>console.error(error))
   },[])
