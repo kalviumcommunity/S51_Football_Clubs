@@ -4,6 +4,7 @@ const postRouter = express.Router();
 const putRouter = express.Router();
 const deleteRouter = express.Router();
 const FootballCLubs = require("../models/footballClubs.model")
+const Joi = require('joi');
     const schema = Joi.object({
       serialNumber:Joi.number(),
       ClubId:Joi.number().required(),
