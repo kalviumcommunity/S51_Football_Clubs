@@ -10,7 +10,7 @@ const Joi = require('joi');
       ClubId:Joi.number().required(),
       ClubName:Joi.string().required(),
       Ranking:Joi.number().required(),
-      Coach:Joi.number().required(),
+      Coach:Joi.string().required(),
       MatchsPlayed:Joi.number().required(),
       Won:Joi.number().required(),
       Losses:Joi.number().required(),
