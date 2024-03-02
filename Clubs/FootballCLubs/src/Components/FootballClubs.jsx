@@ -1,14 +1,31 @@
-import React,{ useEffect, useState } from "react"
+import { useEffect, useState } from "react"
+import {Link} from 'react-router-dom'
 import axios from "axios";
+import { useNavigate} from 'react-router-dom';
 
 
 function ListOfFootballClubs() {
+  const navigate = useNavigate();
   const [data,setData] = useState([]);
-  useEffect(()=>{
-    axios.get('https://football-clubs.onrender.com/getallfootballclub')
-    .then((response) => setData(response.data))
-    .catch(error =>console.error(error))
-  },[])
+  useEffect(() => {
+    const fetchFootballClubs = async () => {
+      try {
+        const response = await axios.get('https://football-clubs.onrender.com/getallfootballclub');
+        setData(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchFootballClubs();
+  }, []);
+  const deleteData = (id) =>{
+    axios.delete(`https://football-clubs.onrender.com/deletefootballclub/${id}`)
+   .then((response) =>{ console.log(response.data);
+    window.location.reload();})
+    .catch((error) => console.error(error))
+  }
   return (
     <div id='Body'>
         <div id='Navbar'>
@@ -20,7 +37,11 @@ function ListOfFootballClubs() {
             </div>
         </div>
         <div id='Body-content'>
+          <div id="add">
+            <Link to='/add'><button>Add</button></Link>
+          </div>
         <table>
+          <thead>
             <tr>
               <th>SerialNumber</th>
               <th>ClubName</th>
@@ -30,7 +51,15 @@ function ListOfFootballClubs() {
               <th>Won</th>
               <th>Losses</th>
               <th>Goals</th>
-            </tr>
+              {/* <th>GoalsConceded</th>
+              <th>CleanSheet</th>
+              <th>Shots</th>
+              <th>Shotsontarget</th> */}
+              <th>Update</th>
+              <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
             {data.map((item,index)=>{
               return (
                 <tr key={index}>
@@ -42,9 +71,16 @@ function ListOfFootballClubs() {
                   <td>{item.Won}</td>
                   <td>{item.Losses}</td>
                   <td>{item.Goals}</td>
+                  {/* <td>{item.GoalsConceded}</td>
+                  <td>{item.CleanSheets}</td>
+                  <td>{item.Shots}</td>
+                  <td>{item.Shotsontarget}</td> */}
+                  <td><Link to={`/update/${item.ClubId}`} state={item}><button id="update">Update</button></Link></td>
+                  <td><button onClick={()=>deleteData(item.ClubId)} id="delete">Delete</button></td>
                 </tr>
               )
             })}
+            </tbody>
         </table>
         </div>
 
