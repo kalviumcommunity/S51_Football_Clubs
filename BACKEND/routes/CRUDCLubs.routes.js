@@ -53,38 +53,51 @@ postRouter.post('/addfootballclub',async (req, res) => {
           
             const { error, value } = schema.validate(req.body, { abortEarly: false });
           
-            if (!error) {
-                try{
+
+            try{
+                if (!error) {
                 let{serialNumber,ClubId,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides} = req.body;
                 const footballClub = await FootballCLubs.create({serialNumber,ClubId,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides});
-                res.status(201).json(footballClub);
+                res.status(201).json(footballClub);}
+                else {
+                    return res.status(400).send({
+                        message: "Bad request"
+                    })
+                    console.error(error)
+                }
             } catch(err){
                 console.log(err);
                 return res.status(500).send({
                     message: "Internal server error"
                 })
             }
-            }
+            
         
 })
 
 putRouter.patch('/updatefootballclub/:id',async (req, res) => {
     const { error, value } = schema.validate(req.body, { abortEarly: false });
           
-    if (!error) {
     try {
+        if (!error) {
         const {id} = req.params;
         const filter ={"ClubId":Number(id)}
         let{SerialNumber,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides} = req.body;
         const footballClub = await FootballCLubs.findOneAndUpdate(filter,{SerialNumber,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides});
-        res.status(200).json(footballClub);
+        res.status(200).json(footballClub);}
+        else {
+            return res.status(400).send({
+                message: "Bad request"
+            })
+            console.error(error)
+        }
     }catch(err){
         console.log(err);
         return res.status(500).send({
             message: "Internal server error"
         })
     }
-}
+
 })
 
 deleteRouter.delete('/deletefootballclub/:id',async (req, res) => {
@@ -101,4 +114,4 @@ deleteRouter.delete('/deletefootballclub/:id',async (req, res) => {
     }
 })
 
-module.exports = {getRouter, postRouter, deleteRouter, putRouter};
+module.exports = {getRouter, postRouter, deleteRouter, putRouter}
