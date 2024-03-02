@@ -11,18 +11,18 @@ const Joi = require('joi');
       ClubName:Joi.string().required(),
       Ranking:Joi.number().required(),
       Coach:Joi.number().required(),
-      MatchsPlayed:number().required(),
-      Won:number().required(),
-      Losses:number().required(),
-      Goals:number().required(),
-      GoalsConceded:number(),
-      CleanSheet:number(),
-      Shots:number(),
-      Shotsontarget:number(),
-      Yellowcards:number(),
-      Redcards:number(),
-      Fouls:number(),
-      Offsides:number()
+      MatchsPlayed:Joi.number().required(),
+      Won:Joi.number().required(),
+      Losses:Joi.number().required(),
+      Goals:Joi.number().required(),
+      GoalsConceded:Joi.number(),
+      CleanSheet:Joi.number(),
+      Shots:Joi.number(),
+      Shotsontarget:Joi.number(),
+      Yellowcards:Joi.number(),
+      Redcards:Joi.number(),
+      Fouls:Joi.number(),
+      Offsides:Joi.number()
     });
 getRouter.get('/getallfootballclub',async (req, res) => {
     try{
