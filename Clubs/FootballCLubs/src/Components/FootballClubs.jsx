@@ -51,12 +51,8 @@ function ListOfFootballClubs() {
               <th>Won</th>
               <th>Losses</th>
               <th>Goals</th>
-              {/* <th>GoalsConceded</th>
-              <th>CleanSheet</th>
-              <th>Shots</th>
-              <th>Shotsontarget</th> */}
-              <th>Update</th>
-              <th>Delete</th>
+              <th>Update </th>
+              <th>Delete </th>
               </tr>
             </thead>
             <tbody>
