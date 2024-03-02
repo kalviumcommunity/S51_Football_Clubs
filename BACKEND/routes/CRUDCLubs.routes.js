@@ -4,7 +4,26 @@ const postRouter = express.Router();
 const putRouter = express.Router();
 const deleteRouter = express.Router();
 const FootballCLubs = require("../models/footballClubs.model")
-
+function validateUserInput(input) {
+    const schema = Joi.object({
+      serialNumber:Joi.number(),
+      ClubId:Joi.number().required(),
+      ClubName:Joi.string().required(),
+      Ranking:Joi.number().required(),
+      Coach:Joi.number().required(),
+      MatchsPlayed:number().required(),
+      Won:number().required(),
+      Losses:number().required(),
+      Goals:number().required(),
+      GoalsConceded:number(),
+      CleanSheet:number(),
+      Shots:number(),
+      Shotsontarget:number(),
+      Yellowcards:number(),
+      Redcards:number(),
+      Fouls:number(),
+      Offsides:number()
+    });
 getRouter.get('/getallfootballclub',async (req, res) => {
     try{
         const footballClubs = await FootballCLubs.find();
@@ -30,19 +49,29 @@ getRouter.get('/getfootballclub/:id',async (req, res) => {
 })
 
 postRouter.post('/addfootballclub',async (req, res) => {
-    try{
-        let{serialNumber,ClubId,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides} = req.body;
-        const footballClub = await FootballCLubs.create({serialNumber,ClubId,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides});
-        res.status(201).json(footballClub);
-    } catch(err){
-        console.log(err);
-        return res.status(500).send({
-            message: "Internal server error"
-        })
-    }
+
+          
+            const { error, value } = schema.validate(req.body, { abortEarly: false });
+          
+            if (!error) {
+                try{
+                let{serialNumber,ClubId,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides} = req.body;
+                const footballClub = await FootballCLubs.create({serialNumber,ClubId,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides});
+                res.status(201).json(footballClub);
+            } catch(err){
+                console.log(err);
+                return res.status(500).send({
+                    message: "Internal server error"
+                })
+            }
+            }
+        
 })
 
 putRouter.patch('/updatefootballclub/:id',async (req, res) => {
+    const { error, value } = schema.validate(req.body, { abortEarly: false });
+          
+    if (!error) {
     try {
         const {id} = req.params;
         const filter ={"ClubId":Number(id)}
@@ -55,6 +84,7 @@ putRouter.patch('/updatefootballclub/:id',async (req, res) => {
             message: "Internal server error"
         })
     }
+}
 })
 
 deleteRouter.delete('/deletefootballclub/:id',async (req, res) => {
