@@ -86,8 +86,9 @@ putRouter.patch('/updatefootballclub/:id',async (req, res) => {
         const footballClub = await FootballCLubs.findOneAndUpdate(filter,{SerialNumber,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides});
         res.status(200).json(footballClub);}
         else {
-            return res.status(400).send({
-                message: `Bad request, error:${error}`
+         return res.status(400).send({
+            message: `Bad request, error:${error}`
+
             })
             console.error(error)
         }
