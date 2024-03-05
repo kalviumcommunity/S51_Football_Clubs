@@ -5,7 +5,7 @@ const putRouter = express.Router();
 const deleteRouter = express.Router();
 const FootballCLubs = require("../models/footballClubs.model")
 const Joi = require('joi');
-    const schema = Joi.object({
+const schema = Joi.object({
       serialNumber:Joi.number(),
       ClubId:Joi.number().required(),
       ClubName:Joi.string().required(),
@@ -88,6 +88,7 @@ putRouter.patch('/updatefootballclub/:id',async (req, res) => {
         else {
          return res.status(400).send({
             message: `Bad request, error:${error}`
+
             })
             console.error(error)
         }
