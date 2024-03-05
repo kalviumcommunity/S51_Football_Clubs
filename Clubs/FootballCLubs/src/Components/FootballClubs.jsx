@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react"
 import {Link} from 'react-router-dom'
 import axios from "axios";
-import { useNavigate} from 'react-router-dom';
+import WelcomeUser from "./SubComponent/WelcomeUser";
 
 
 function ListOfFootballClubs() {
-  const navigate = useNavigate();
   const [data,setData] = useState([]);
   useEffect(() => {
     const fetchFootballClubs = async () => {
@@ -26,6 +25,7 @@ function ListOfFootballClubs() {
     window.location.reload();})
     .catch((error) => console.error(error))
   }
+
   return (
     <div id='Body'>
         <div id='Navbar'>
@@ -33,7 +33,7 @@ function ListOfFootballClubs() {
                 <h1>Football Clubs</h1>
             </div>
             <div id='Navbar-right'>
-                <button id='Navbar-button'>Sign Up</button>
+                <WelcomeUser/>
             </div>
         </div>
         <div id='Body-content'>

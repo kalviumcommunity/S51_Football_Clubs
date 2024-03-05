@@ -73,3 +73,9 @@ input{
 #delete{
   background-color: rgb(186, 18, 29);
 }
+#Navbar-right{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 20vw;
+}

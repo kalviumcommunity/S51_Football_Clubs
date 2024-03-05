@@ -5,12 +5,12 @@ const putRouter = express.Router();
 const deleteRouter = express.Router();
 const FootballCLubs = require("../models/footballClubs.model")
 const Joi = require('joi');
-    const schema = Joi.object({
+const schema = Joi.object({
       serialNumber:Joi.number(),
       ClubId:Joi.number().required(),
       ClubName:Joi.string().required(),
       Ranking:Joi.number().required(),
-      Coach:Joi.number().required(),
+      Coach:Joi.string().required(),
       MatchsPlayed:Joi.number().required(),
       Won:Joi.number().required(),
       Losses:Joi.number().required(),
@@ -61,7 +61,7 @@ postRouter.post('/addfootballclub',async (req, res) => {
                 res.status(201).json(footballClub);}
                 else {
                     return res.status(400).send({
-                        message: "Bad request"
+                        message: `Bad request, error:${error}`
                     })
                     console.error(error)
                 }
@@ -87,7 +87,7 @@ putRouter.patch('/updatefootballclub/:id',async (req, res) => {
         res.status(200).json(footballClub);}
         else {
             return res.status(400).send({
-                message: "Bad request"
+                message: `Bad request, error:${error}`
             })
             console.error(error)
         }
