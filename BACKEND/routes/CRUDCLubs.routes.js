@@ -30,7 +30,7 @@ const schema = Joi.object({
         const token = authHeader && authHeader.split(' ')[1]
         if(token) return res.sendStatus(401)
         jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,(err,user)=>{
-          if(err) return res.sendStatus(403)
+          if(err) return res.status(403).send(err);
           req.user = user
           next()
         })
