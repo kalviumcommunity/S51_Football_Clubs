@@ -20,11 +20,11 @@ signup.post('/signup',async (req, res) => {
     }
 });
 login.post('/login',async (req, res) => {
-   const user = await userModel.findOne({name:req.body.name});
+   try{
+    const user = await userModel.findOne({name:req.body.name});
    if(user==null){
     return res.status(400).send('Cannot find user');
    }
-   try{
     if(await bcrypt.compare(req.body.password,user.password)){
         const accessToken = jwt.sign(user,process.env.ACCESS_TOKEN_SECRET )
         res.json( {accessToken: accessToken})
