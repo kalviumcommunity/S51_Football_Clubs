@@ -14,7 +14,7 @@ signup.post('/signup',async (req, res) => {
         }
          await userModel.create(newUser);
          const accessToken = jwt.sign(req.body.name,process.env.ACCESS_TOKEN_SECRET )
-        res.status(201).json({message:"Signup successful"},{accessToken: accessToken});
+        res.status(201).json({message:"Signup successful",accessToken: accessToken});
     }catch(err){
         res.status(500).json(err);
     }
