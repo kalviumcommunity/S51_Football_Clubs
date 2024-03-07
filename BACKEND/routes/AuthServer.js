@@ -32,7 +32,7 @@ login.post('/login',async (req, res) => {
         res.send('Wrong Password')
     }
    }catch(err){
-    res.status(500).json();
+    res.status(500).json(err);
    }
 })
 module.exports = {login,signup}
