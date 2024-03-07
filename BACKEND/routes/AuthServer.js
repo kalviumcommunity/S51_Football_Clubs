@@ -7,7 +7,7 @@ const userModel = require('../models/Users.model')
 const login = express.Router();
 signup.post('/signup',async (req, res) => {
     try{
-        const hashedPassword = await bcrypt.hash(req.body.password,100)
+        const hashedPassword = await bcrypt.hash(req.body.password,10)
         const newUser = {
             name: req.body.name,
             password: hashedPassword,
@@ -16,6 +16,7 @@ signup.post('/signup',async (req, res) => {
         res.status(201).json({message:"Signup successful"});
     }catch(err){
         res.status(500).json(err);
+        console.log(err)
     }
 });
 login.post('/login',async (req, res) => {
