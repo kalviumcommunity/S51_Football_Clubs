@@ -3,6 +3,7 @@ const getRouter = express.Router();
 const postRouter = express.Router();
 const putRouter = express.Router();
 const deleteRouter = express.Router();
+const jwt = require('jsonwebtoken');
 const FootballCLubs = require("../models/footballClubs.model")
 const Joi = require('joi');
 const schema = Joi.object({
