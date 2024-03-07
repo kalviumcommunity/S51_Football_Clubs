@@ -14,21 +14,12 @@ app.get('/home', (req, res) => {
       message: isConnected() ? 'Database is connected' : 'Disconnected from database'
     })
 });
-const authenticateToken = (req, res,next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1]
-  if(token) return res.sendStatus(401)
-  jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,(err,user)=>{
-    if(err) return res.sendStatus(403)
-    req.user = user
-    next()
-  })
-}
+
 app.use(express.json())
-app.use('/',authenticateToken,getRouter);
-app.use('/',authenticateToken, postRouter);
-app.use('/',authenticateToken, putRouter);
-app.use('/',authenticateToken, deleteRouter);
+app.use('/',getRouter);
+app.use('/', postRouter);
+app.use('/', putRouter);
+app.use('/', deleteRouter);
 app.use('/', login);
 app.use('/', signup);
 

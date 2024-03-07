@@ -24,7 +24,17 @@ const schema = Joi.object({
       Fouls:Joi.number(),
       Offsides:Joi.number()
     });
-getRouter.get('/getallfootballclub',async (req, res) => {
+    const authenticateToken = (req, res,next) => {
+        const authHeader = req.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1]
+        if(token) return res.sendStatus(401)
+        jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,(err,user)=>{
+          if(err) return res.sendStatus(403)
+          req.user = user
+          next()
+        })
+      }
+getRouter.get('/getallfootballclub',authenticateToken,async (req, res) => {
     try{
         const footballClubs = await FootballCLubs.find();
         res.status(200).json(footballClubs);
@@ -36,7 +46,7 @@ getRouter.get('/getallfootballclub',async (req, res) => {
     }
 })
 
-getRouter.get('/getfootballclub/:id',async (req, res) => {
+getRouter.get('/getfootballclub/:id',authenticateToken,async (req, res) => {
     try{
         const footballClub = await FootballCLubs.findone({ClubName:query});
         res.status(200).json(footballClub);
@@ -48,7 +58,7 @@ getRouter.get('/getfootballclub/:id',async (req, res) => {
     }
 })
 
-postRouter.post('/addfootballclub',async (req, res) => {
+postRouter.post('/addfootballclub',authenticateToken,async (req, res) => {
 
           
             const { error, value } = schema.validate(req.body, { abortEarly: false });
@@ -75,7 +85,7 @@ postRouter.post('/addfootballclub',async (req, res) => {
         
 })
 
-putRouter.patch('/updatefootballclub/:id',async (req, res) => {
+putRouter.patch('/updatefootballclub/:id',authenticateToken,async (req, res) => {
     const { error, value } = schema.validate(req.body, { abortEarly: false });
           
     try {
@@ -100,7 +110,7 @@ putRouter.patch('/updatefootballclub/:id',async (req, res) => {
 
 })
 
-deleteRouter.delete('/deletefootballclub/:id',async (req, res) => {
+deleteRouter.delete('/deletefootballclub/:id',authenticateToken,async (req, res) => {
     try {
         const {id} = req.params;
         const filter ={"ClubId":Number(id)}
