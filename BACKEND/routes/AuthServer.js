@@ -20,7 +20,7 @@ signup.post('/signup',async (req, res) => {
     }
 });
 login.post('/login',async (req, res) => {
-   const user = userModel.findOne({name:req.body.name});
+   const user = await userModel.findOne({name:req.body.name});
    if(user==null){
     return res.status(400).send('Cannot find user');
    }
