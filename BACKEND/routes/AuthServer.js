@@ -15,7 +15,7 @@ signup.post('/signup',async (req, res) => {
          await userModel.create(newUser);
         res.status(201).json({message:"Signup successful"});
     }catch(err){
-        res.status(500).json();
+        res.status(500).json(err);
     }
 });
 login.post('/login',async (req, res) => {
