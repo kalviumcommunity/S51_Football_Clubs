@@ -17,7 +17,8 @@ const FootballClubSchema = new mongoose.Schema({
     Yellowcards:{type:Number},
     Redcards:{type:Number},
     Fouls:{type:Number},
-    Offsides:{type:Number}
+    Offsides:{type:Number},
+    created_by:{type:String}
 },
 {
     timestamps: true
