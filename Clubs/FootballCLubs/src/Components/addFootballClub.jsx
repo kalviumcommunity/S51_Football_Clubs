@@ -1,6 +1,7 @@
 import  { useState } from 'react'
 import { useNavigate,Link } from 'react-router-dom';
 import axios from 'axios'
+import WelcomeUser from './SubComponent/WelcomeUser';
 function AddFootballClub() {
     const navigate = useNavigate();
     const [ClubId,setSerialNumber]=useState("")
@@ -11,6 +12,7 @@ function AddFootballClub() {
     const [won,setWon]=useState("")
     const [losses,setLosses]=useState("")
     const [goals,setGoals]=useState("")
+    const [created_by,setCreatedBy]=useState("")
     function getCookie(name) {
       let cookieArray = document.cookie.split('; ');
       let cookie = cookieArray.find((row) => row.startsWith(name + '='));
@@ -18,8 +20,6 @@ function AddFootballClub() {
   }
   const token = getCookie('token')
     const submit=(e)=>{
-      
-      const user = getCookie('username')
       e.preventDefault();
         axios.post('https://football-clubs.onrender.com/addfootballclub',{
           ClubId: ClubId,
@@ -30,7 +30,7 @@ function AddFootballClub() {
           Won: won,
           Losses: losses,
           Goals: goals,
-        created_by:user},{headers:{Authorization:`Bearer ${token}`}})
+        created_by:created_by},{headers:{authorization:`Bearer ${token}`}})
      .then((response) =>{ console.log(response.data);
     navigate('/')})
     .catch((error) => console.error(error))
@@ -44,7 +44,7 @@ function AddFootballClub() {
               <Link to='/'><h1>Football Clubs</h1></Link>
             </div>
             <div id='Navbar-right'>
-                <button id='Navbar-button'>Sign Up</button>
+              <WelcomeUser/>
             </div>
         </div>
         <div id='Body-content'>
@@ -55,8 +55,7 @@ function AddFootballClub() {
             <div className='space-around'><label>Club Name : </label>
             <input type="text" onChange={(e)=>setClubName(e.target.value)}/></div>
             <div className='space-around'><label>Ranking : </label>
-            <input type="text" onChange={(e)=>{setRankings(e.target.value)
-            console.log(ranking)}}/></div>
+            <input type="text" onChange={(e)=>{setRankings(e.target.value)}}/></div>
             <div className='space-around'><label>Coach : </label>
             <input type="text" onChange={(e)=>setCoach(e.target.value)}/></div>
             <div className='space-around'><label>Matchs Played : </label>
@@ -67,6 +66,8 @@ function AddFootballClub() {
             <input type="text" onChange={(e)=>setLosses(e.target.value)}/></div>
             <div className='space-around'><label>Goals : </label>
             <input type="text" onChange={(e)=>setGoals(e.target.value)}/></div>
+            <div className='space-around'><label>Created By : </label>
+            <input type="text" onChange={(e)=>setCreatedBy(e.target.value)}/></div>
             <button type="submit">Submit</button>
             </form>
             </div>
