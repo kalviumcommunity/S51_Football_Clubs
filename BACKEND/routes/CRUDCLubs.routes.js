@@ -4,7 +4,6 @@ const postRouter = express.Router();
 const putRouter = express.Router();
 const jwt = require('jsonwebtoken')
 const deleteRouter = express.Router();
-const jwt = require('jsonwebtoken');
 const FootballCLubs = require("../models/footballClubs.model")
 const Joi = require('joi');
 const schema = Joi.object({
@@ -30,7 +29,6 @@ const schema = Joi.object({
     const authenticateToken = (req, res,next) => {
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1]
-
         if(token==null) return res.sendStatus(401)
         jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,(err,user)=>{
           if(err) return res.sendStatus(403)
@@ -99,9 +97,8 @@ putRouter.patch('/updatefootballclub/:id',authenticateToken,async (req, res) => 
         const footballClub = await FootballCLubs.findOneAndUpdate(filter,{SerialNumber,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides,created_by});
         res.status(200).json(footballClub);}
         else {
-         return res.status(400).send({
-            message: `Bad request, error:${error}`
-
+            return res.status(400).send({
+                message: `Bad request, error:${error}`
             })
             console.error(error)
         }
