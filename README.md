@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # List Of Worst FootBall Clubs
 
 This Project aims to rank the worst football clubs in the world based on various criteria such as point, goals, record, players reputation and User's Preference.
@@ -22,3 +23,6 @@ Link : https://football-clubs.onrender.com/ping
 ## Front-end Development Link
 
 Link : https://s51footballclubs.netlify.app/
+=======
+# Football Clubs
+>>>>>>> 1d197b81599fdbda2a1edc390c436037a263eacd
