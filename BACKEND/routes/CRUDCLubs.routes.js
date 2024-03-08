@@ -2,6 +2,7 @@ const express = require('express')
 const getRouter = express.Router();
 const postRouter = express.Router();
 const putRouter = express.Router();
+const jwt = require('jsonwebtoken')
 const deleteRouter = express.Router();
 const FootballCLubs = require("../models/footballClubs.model")
 const Joi = require('joi');
@@ -22,15 +23,15 @@ const schema = Joi.object({
       Yellowcards:Joi.number(),
       Redcards:Joi.number(),
       Fouls:Joi.number(),
-      Offsides:Joi.number()
+      Offsides:Joi.number(),
+      created_by:Joi.string().required()
     });
     const authenticateToken = (req, res,next) => {
         const authHeader = req.headers['authorization'];
         const token = authHeader && authHeader.split(' ')[1]
-        if(token) return res.sendStatus(401)
+        if(token==null) return res.sendStatus(401)
         jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,(err,user)=>{
           if(err) return res.sendStatus(403)
-          req.user = user
           next()
         })
       }
@@ -66,8 +67,8 @@ postRouter.post('/addfootballclub',authenticateToken,async (req, res) => {
 
             try{
                 if (!error) {
-                let{serialNumber,ClubId,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides} = req.body;
-                const footballClub = await FootballCLubs.create({serialNumber,ClubId,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides});
+                let{serialNumber,ClubId,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides,created_by} = req.body;
+                const footballClub = await FootballCLubs.create({serialNumber,ClubId,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides,created_by});
                 res.status(201).json(footballClub);}
                 else {
                     return res.status(400).send({
@@ -92,8 +93,8 @@ putRouter.patch('/updatefootballclub/:id',authenticateToken,async (req, res) => 
         if (!error) {
         const {id} = req.params;
         const filter ={"ClubId":Number(id)}
-        let{SerialNumber,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides} = req.body;
-        const footballClub = await FootballCLubs.findOneAndUpdate(filter,{SerialNumber,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides});
+        let{SerialNumber,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides,created_by} = req.body;
+        const footballClub = await FootballCLubs.findOneAndUpdate(filter,{SerialNumber,ClubName,Ranking,Coach,MatchsPlayed,Won,Losses,Goals,GoalsConceded,CleanSheet,Shots,Shotsontarget,Yellowcards,Redcards,Fouls,Offsides,created_by});
         res.status(200).json(footballClub);}
         else {
             return res.status(400).send({
