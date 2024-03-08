@@ -13,7 +13,7 @@ signup.post('/signup',async (req, res) => {
             password: hashedPassword,
         }
          await userModel.create(newUser);
-         const accessToken = jwt.sign(req.body.hashedPassword,process.env.ACCESS_TOKEN_SECRET )
+         const accessToken = jwt.sign(hashedPassword,process.env.ACCESS_TOKEN_SECRET )
         res.status(201).json({message:"Signup successful",accessToken: accessToken});
 
     }catch(err){
