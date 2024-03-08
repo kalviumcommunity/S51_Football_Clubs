@@ -1,5 +1,5 @@
 import  { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import axios from 'axios'
 function AddFootballClub() {
     const navigate = useNavigate();
@@ -11,7 +11,15 @@ function AddFootballClub() {
     const [won,setWon]=useState("")
     const [losses,setLosses]=useState("")
     const [goals,setGoals]=useState("")
+    function getCookie(name) {
+      let cookieArray = document.cookie.split('; ');
+      let cookie = cookieArray.find((row) => row.startsWith(name + '='));
+      return cookie ? cookie.split('=')[1] : null;
+  }
+  const token = getCookie('token')
     const submit=(e)=>{
+      
+      const user = getCookie('username')
       e.preventDefault();
         axios.post('https://football-clubs.onrender.com/addfootballclub',{
           ClubId: ClubId,
@@ -21,7 +29,8 @@ function AddFootballClub() {
           MatchsPlayed: matchsPlayed,
           Won: won,
           Losses: losses,
-          Goals: goals})
+          Goals: goals,
+        created_by:user},{headers:{Authorization:`Bearer ${token}`}})
      .then((response) =>{ console.log(response.data);
     navigate('/')})
     .catch((error) => console.error(error))
@@ -32,7 +41,7 @@ function AddFootballClub() {
         <div id='Body'>
         <div id='Navbar'>
             <div id='Navbar-left'>
-                <h1>Football Clubs</h1>
+              <Link to='/'><h1>Football Clubs</h1></Link>
             </div>
             <div id='Navbar-right'>
                 <button id='Navbar-button'>Sign Up</button>

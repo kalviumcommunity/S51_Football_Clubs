@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 
 function LogOutPage() {
     const navigate = useNavigate();
@@ -16,6 +16,7 @@ function LogOutPage() {
     const signOut=()=>{
       console.log("Test",getCookie('username'))
         setCookie('username', "", 0)
+        setCookie('token', "", 0)
         console.log("Test",getCookie('username'))
         navigate('/')
     }
@@ -23,7 +24,7 @@ function LogOutPage() {
     <div id='Body'>
               <div id='Navbar'>
             <div id='Navbar-left'>
-                <h1>Football Clubs</h1>
+            <Link to='/'><h1>Football Clubs</h1></Link>
             </div>
             <div></div>
         </div>

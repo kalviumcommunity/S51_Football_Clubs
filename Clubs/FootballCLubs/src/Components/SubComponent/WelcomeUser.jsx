@@ -9,11 +9,11 @@ function WelcomeUser() {
     if(getCookie('username')!=undefined) {return(
         <>
         <h3>Welcome {getCookie('username')}</h3>
-        <Link to="/logout"><button id='Navbar-button'>Logout</button></Link>
+        <Link to="/logout"><button id='Navbar-button' style={{backgroundColor : 'rgb(255, 0, 0)'}}>Logout</button></Link>
         </>)}
     
       else{return(
-      <Link to="/login"><button id='Navbar-button'>Login</button></Link>)}}
+      <Link to="/login"><button id='Navbar-button' style={{backgroundColor : 'rgb(34, 255, 0)'}}>Login</button></Link>)}}
 
 
 
