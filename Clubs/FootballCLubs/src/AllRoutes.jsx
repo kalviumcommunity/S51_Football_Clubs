@@ -4,6 +4,7 @@ import Home from "./Components/FootballClubs";
 import UpdateFootballClub from "./Components/UpdateFootball";
 import LogInPage from "./Components/LoginInPage";
 import LogOutPage from "./Components/LogOutPage";
+import SignupPage from "./Components/SignUpPage";
 
 const AllRoutes=()=>{
     return (
@@ -14,6 +15,7 @@ const AllRoutes=()=>{
            < Route path='/update/:id' element={<UpdateFootballClub />}></Route>
            <Route path="/login"element={<LogInPage/>}></Route>
            <Route path="/logout" element={<LogOutPage/>}></Route>
+           <Route path="/signup" element={<SignupPage/>}></Route>
         </Routes>
 
         </>

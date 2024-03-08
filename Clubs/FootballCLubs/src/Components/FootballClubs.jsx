@@ -5,11 +5,18 @@ import WelcomeUser from "./SubComponent/WelcomeUser";
 
 
 function ListOfFootballClubs() {
+  function getCookie(name) {
+    let cookieArray = document.cookie.split('; ');
+    let cookie = cookieArray.find((row) => row.startsWith(name + '='));
+    return cookie ? cookie.split('=')[1] : null;
+}
+  const token = getCookie('token')
   const [data,setData] = useState([]);
+  const [filter,setFilter] = useState("All")
   useEffect(() => {
     const fetchFootballClubs = async () => {
       try {
-        const response = await axios.get('https://football-clubs.onrender.com/getallfootballclub');
+        const response = await axios.get('https://football-clubs.onrender.com/getallfootballclub',{headers:{authorization:`Bearer ${token}`}});
         setData(response.data);
         console.log(response.data);
       } catch (error) {
@@ -19,8 +26,17 @@ function ListOfFootballClubs() {
   
     fetchFootballClubs();
   }, []);
+  const filteredData = data.filter((item)=>{
+      if(filter === "All"){
+        return item
+      }
+      else if(item.created_by.includes(filter)){
+        return item
+      }
+    })
+  
   const deleteData = (id) =>{
-    axios.delete(`https://football-clubs.onrender.com/deletefootballclub/${id}`)
+    axios.delete(`https://football-clubs.onrender.com/deletefootballclub/${id}`,{headers:{authorization:`Bearer ${token}`}})
    .then((response) =>{ console.log(response.data);
     window.location.reload();})
     .catch((error) => console.error(error))
@@ -30,14 +46,27 @@ function ListOfFootballClubs() {
     <div id='Body'>
         <div id='Navbar'>
             <div id='Navbar-left'>
-                <h1>Football Clubs</h1>
+                <Link to='/'><h1>Football Clubs</h1></Link>
             </div>
             <div id='Navbar-right'>
                 <WelcomeUser/>
             </div>
         </div>
+        {(data.length > 1) ?
         <div id='Body-content'>
           <div id="add">
+          <div id="createdBy">
+          <p> Created By :   </p> 
+            <select name="createdBy" id="CreatedBy" onChange={(e)=>{setFilter(e.target.value)}}>
+              <option value="All">All</option>
+              <option value="Anna Connel">Anna Connel</option>
+              <option value="John Houlding">John Houlding</option>
+              <option value="Gus Mears">Gus Mears</option>
+              <option value="Jack Hughes">Jack Hughes</option>
+            </select>
+          </div>
+          
+          
             <Link to='/add'><button>Add</button></Link>
           </div>
         <table>
@@ -53,10 +82,11 @@ function ListOfFootballClubs() {
               <th>Goals</th>
               <th>Update </th>
               <th>Delete </th>
+              <th>Created By</th>
               </tr>
             </thead>
             <tbody>
-            {data.map((item,index)=>{
+            {filteredData.map((item,index)=>{
               return (
                 <tr key={index}>
                   <td>{item.ClubId}</td>
@@ -71,15 +101,23 @@ function ListOfFootballClubs() {
                   <td>{item.CleanSheets}</td>
                   <td>{item.Shots}</td>
                   <td>{item.Shotsontarget}</td> */}
+                  
                   <td><Link to={`/update/${item.ClubId}`} state={item}><button id="update">Update</button></Link></td>
                   <td><button onClick={()=>deleteData(item.ClubId)} id="delete">Delete</button></td>
+                  <td>{item.created_by}</td>
                 </tr>
               )
             })}
             </tbody>
         </table>
         </div>
-
+        :<div id='Body-content'>
+          <div id="login">
+          <h1>Please Login To Continue</h1>
+          <Link to="/login"><button id='Navbar-button' style={{backgroundColor : 'rgb(34, 255, 0)',height:'10vh',width:'19vw',fontSize:'30px',textAlign:'center',marginBottom:'20px'}}>Login</button></Link>
+          </div>
+        </div>
+}
       
     </div>
   )

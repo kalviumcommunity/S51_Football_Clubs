@@ -1,7 +1,13 @@
 import  { useState } from 'react'
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate,useLocation,Link } from 'react-router-dom';
 import axios from 'axios'
 function UpdateFootballClub() {
+  function getCookie(name) {
+    let cookieArray = document.cookie.split('; ');
+    let cookie = cookieArray.find((row) => row.startsWith(name + '='));
+    return cookie ? cookie.split('=')[1] : null;
+}
+const token = getCookie('token')
   const location = useLocation()
     const navigate = useNavigate();
     const data = location.state;
@@ -25,7 +31,7 @@ function UpdateFootballClub() {
           MatchsPlayed: matchsPlayed,
           Won: won,
           Losses: losses,
-          Goals: goals})
+          Goals: goals},{headers:{Authorization:`Bearer ${token}`}})
      .then((response) =>{ console.log(response.data);
     navigate('/')})
     .catch((error) => console.error(error))
@@ -36,7 +42,7 @@ function UpdateFootballClub() {
         <div id='Body'>
         <div id='Navbar'>
             <div id='Navbar-left'>
-                <h1>Football Clubs</h1>
+            <Link to='/'><h1>Football Clubs</h1></Link>
             </div>
             <div id='Navbar-right'>
                 <button id='Navbar-button'>Sign Up</button>
