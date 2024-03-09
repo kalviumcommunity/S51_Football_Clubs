@@ -70,6 +70,11 @@ input{
   width: 15vw;
   color: #000;
 }
+#cCreatedBy{
+  width: 16vw;
+  color: #000;
+  background-color: #fff;
+}
 #update{
   background-color: rgb(18, 74, 186);
 }
