@@ -72,7 +72,13 @@ function UpdateFootballClub() {
             <div className='space-around'><label>Goals : </label>
             <input type="text" defaultValue={data.Goals}  onChange={(e)=>setGoals(e.target.value)}/></div>
             <div className='space-around'><label>Created By : </label>
-            <input type="text" defaultValue={data.created_by}  onChange={(e)=>setCreatedBy(e.target.value)}/></div>
+            <select name="createdBy" id="cCreatedBy" onChange={(e)=>{setCreatedBy(e.target.value)}}>
+              <option value="All">All</option>
+              <option value="Anna Connel">Anna Connel</option>
+              <option value="John Houlding">John Houlding</option>
+              <option value="Gus Mears">Gus Mears</option>
+              <option value="Jack Hughes">Jack Hughes</option>
+            </select></div>
             <button type="submit">Update</button>
           </form>
         </div>

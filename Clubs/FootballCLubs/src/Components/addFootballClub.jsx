@@ -67,7 +67,13 @@ function AddFootballClub() {
             <div className='space-around'><label>Goals : </label>
             <input type="text" onChange={(e)=>setGoals(e.target.value)}/></div>
             <div className='space-around'><label>Created By : </label>
-            <input type="text" onChange={(e)=>setCreatedBy(e.target.value)}/></div>
+            <select name="createdBy" id="cCreatedBy" onChange={(e)=>{setCreatedBy(e.target.value)}}>
+              <option value="All">All</option>
+              <option value="Anna Connel">Anna Connel</option>
+              <option value="John Houlding">John Houlding</option>
+              <option value="Gus Mears">Gus Mears</option>
+              <option value="Jack Hughes">Jack Hughes</option>
+            </select></div>
             <button type="submit">Submit</button>
             </form>
             </div>
