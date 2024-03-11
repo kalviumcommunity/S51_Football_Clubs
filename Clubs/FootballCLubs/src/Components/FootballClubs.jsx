@@ -72,7 +72,7 @@ function ListOfFootballClubs() {
         <table>
           <thead>
             <tr>
-              <th>SerialNumber</th>
+              <th>Clud Id</th>
               <th>ClubName</th>
               <th>Ranking</th>
               <th>Coach</th>
